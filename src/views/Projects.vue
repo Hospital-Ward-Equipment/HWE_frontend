@@ -43,7 +43,7 @@
       </v-card>
     </v-container>
   </div>
-  <Footer/>
+  <!-- <Footer/> -->
 </v-app>
 </template>
 
@@ -51,13 +51,13 @@
 // @ is an alias to /src
 
 import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
+// import Footer from '@/components/Footer'
 export default {
 
   name: 'projects',
   components: {
     Navbar,
-   Footer
+  //  Footer
   },
   data: () => ({
     projects : [

@@ -141,21 +141,21 @@
       </v-layout>
     </v-container>
   </div>
-<Footer/>
+<!-- <Footer/> -->
 </v-app>
 </template>
 
 <script>
 // @ is an alias to /src
 import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
+// import Footer from '@/components/Footer'
 
 export default {
   name: 'team',
   
   components: {
    Navbar,
-   Footer
+  //  Footer
   },
   data : () => ({
     team: [
