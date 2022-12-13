@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Dashboard from '../views/Dashboard.vue'
 import Projects from '../views/Projects.vue'
-import Team from '../views/Team.vue'
+import WardsStatus from '../views/WardsStatus.vue'
 import Login from '../views/Login.vue'
 Vue.use(VueRouter)
 
@@ -22,9 +22,9 @@ const routes = [
     //component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path: '/team',
-    name: 'team',
-    component: Team
+    path: '/ward',
+    name: 'ward',
+    component: WardsStatus
   },
   {
     path: '/login',

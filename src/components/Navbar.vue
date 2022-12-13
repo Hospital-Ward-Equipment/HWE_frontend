@@ -3,8 +3,8 @@
     <v-app-bar  dark app class="lbn">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase ">
-        <span class="font-weight-light">AAE</span>
-        <span>IdeaPro</span>
+        <span class="font-weight-light">Suwa</span>
+        <span>Sewana</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <!-- <v-menu offset-y>
@@ -69,7 +69,7 @@ export default {
     links: [
       { icon: 'dashboard', text: 'Dashboard', route: '/' },
       { icon: 'mdi-stethoscope', text: 'Equipment', route: '/equipment' },
-      { icon: 'mdi-hospital-building', text: 'Wards', route: '/team' }
+      { icon: 'mdi-hospital-building', text: 'Wards', route: '/ward' }
     ]
 
   }),
