@@ -1,4 +1,7 @@
 <template>
+  <v-app>
+    <Navbar/>
+    
   <div class="projects">
     <h1 class="subheading grey--text">Project</h1>
     <v-container>
@@ -40,16 +43,21 @@
       </v-card>
     </v-container>
   </div>
+  <Footer/>
+</v-app>
 </template>
 
 <script>
 // @ is an alias to /src
 
-
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 export default {
+
   name: 'projects',
   components: {
-   
+    Navbar,
+   Footer
   },
   data: () => ({
     projects : [
