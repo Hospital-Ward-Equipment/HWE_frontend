@@ -14,7 +14,15 @@
     <v-data-table :headers="headers" :items="desserts" :search="search" sort-by="calories" class="elevation-1">
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Ward - 1</v-toolbar-title>
+          <v-toolbar-title>
+            <select >
+              <option >ward 1 </option>
+              <option >ward 2 </option>
+              <option >ward 3 </option>
+              <option >ward 4 </option>
+
+            </select>
+          </v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
@@ -109,12 +117,17 @@ export default {
         sortable: false,
         value: 'equipment',
       },
-
       { text: 'All', value: 'all',filterable: false, },
       { text: 'Usable', value: 'ubl' ,filterable: false,},
       { text: 'Broken', value: 'bkn' ,filterable: false,},
       { text: 'Actions', value: 'actions', sortable: false },
     ],
+    items: [
+        { title: 'Click Me' },
+        { title: 'Click Me' },
+        { title: 'Click Me' },
+        { title: 'Click Me 2' },
+      ],
     desserts: [],
     editedIndex: -1,
     editedItem: {
