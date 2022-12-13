@@ -3,41 +3,45 @@
     <Navbar/>
     
   <div class="projects">
-    <h1 class="subheading grey--text">Project</h1>
+    <!-- <h1 class="subheading grey--text">Project</h1> -->
     <v-container>
       <v-layout row wrap class="mb-4">
       <v-tooltip bottom>
-      <template v-slot:activator="{ on }">
-        <v-btn small outlined color="green" @click="sortBy('title')" class="mr-2" dark v-on="on">
+      <!-- <template v-slot:activator="{ on }">
+        <v-btn small outlined color="green" @click="sortBy('item')" class="mr-2" dark v-on="on">
            <v-icon left small>folder</v-icon>
-            <span class="caption text-lowercase">By project title</span>
+            <span class="caption text-lowercase">By name</span>
         </v-btn>
-      </template>
+      </template> -->
         <span>Sort project</span>
       </v-tooltip>
        <v-tooltip bottom>
       <template v-slot:activator="{ on }">
-        <v-btn small outlined color="blue" @click="sortBy('title')" class="mr-2" dark v-on="on">
+        <v-btn small outlined color="blue" @click="sortBy('bqty')" class="mr-2" dark v-on="on">
            <v-icon left small>person</v-icon>
-            <span class="caption text-lowercase">By name</span>
+            <span class="caption text-lowercase">By Broke qty</span>
         </v-btn>
       </template>
         <span>Sort person</span>
       </v-tooltip>
       </v-layout>
-      <v-card flat  v-for="project in projects" :key="project.title" class="mb-1">
-          <v-layout row wrap :class="`pa-3 project ${project.status}`">
-            <v-flex xs12 md6>
-                <div class="caption grey--text">Project title</div>
-                <div >{{project.title}}</div>
+      <v-card flat  v-for="project in projects" :key="project.item" class="mb-1">
+          <v-layout row wrap :class="`pa-4 project ${project.status}`">
+            <v-flex xs12 md4>
+                <div class="caption grey--text">Item</div>
+                <div >{{project.item}}</div>
             </v-flex>
             <v-flex xs6 sm4 md2>
-                <div class="caption grey--text">Person</div>
-                <div >{{project.person}}</div>
+                <div class="caption grey--text">All</div>
+                <div >{{project.fqty}}</div>
             </v-flex>
             <v-flex xs6 sm4 md2>
-                <div class="caption grey--text">Due By</div>
-                <div >{{project.due}}</div>
+                <div class="caption grey--text">Usable</div>
+                <div >{{project.uqty}}</div>
+            </v-flex>
+            <v-flex xs6 sm4 md2>
+                <div class="caption grey--text">Broken</div>
+                <div >{{project.bqty}}</div>
             </v-flex>
           </v-layout>
       </v-card>
@@ -61,15 +65,15 @@ export default {
   },
   data: () => ({
     projects : [
-      {title: 'Site web ', person :'khaled', due: '10/10/1987', status:'no'},
-      {title: 'Application mobile', person :'Iyad', due: '02/07/1990', status:'complete'},
-      {title: 'Gestion de stock', person :'Zineb', due: '01/05/1987', status:'yes'},
-      {title: 'Conception', person :'Hu Java', due: '02/09/1991', status:'up'},
+      {item: 'Site web2 ', fqty :10, uqty: 4, bqty:2},
+      {item: 'Site web3 ', fqty :10, uqty: 4, bqty:6},
+      {item: 'Site web1 ', fqty :10, uqty: 4, bqty:3},
+      {item: 'Site web0 ', fqty :10, uqty: 4, bqty:9},
     ]
   }),
   methods: {
     sortBy(prop){
-      this.projects.sort((a,b) => a[prop] < b[prop] ? -1:1)
+      this.projects.sort((a,b) => a[prop] > b[prop] ? -1:1)
     }
   }
 }
