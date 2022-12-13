@@ -313,18 +313,18 @@ export default {
       </v-btn>
     </template>
   </v-data-table>
-   <Footer/>
+   <!-- <Footer/> -->
 </v-app>
 </template>
 <script>
 import Navbar from '@/components/Navbar'
 
-import Footer from '@/components/Footer'
+// import Footer from '@/components/Footer'
 
   export default {
     components: {
       Navbar,
-       Footer
+      //  Footer
     },
     data: () => ({
       dialog: false,
