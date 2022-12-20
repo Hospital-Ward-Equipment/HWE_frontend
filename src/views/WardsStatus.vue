@@ -20,7 +20,6 @@
               <option >ward 2 </option>
               <option >ward 3 </option>
               <option >ward 4 </option>
-
             </select>
           </v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
