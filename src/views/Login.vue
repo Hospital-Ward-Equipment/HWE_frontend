@@ -10,7 +10,7 @@
                   <v-row>
                     <v-col cols="12" md="8">
                       <v-card-text class="mt-12">
-                        <h1 class="text-center display-2  text--accent-3">Sign in to Diprella</h1>
+                        <h1 class="text-center display-2  text--accent-3">Sign in to Suwasewana</h1>
                         
                         <h4 class="text-center mt-4">Ensure your email for registration</h4>
                         <v-form>

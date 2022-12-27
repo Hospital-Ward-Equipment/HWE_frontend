@@ -15,12 +15,23 @@
       <template v-slot:top>
         <v-toolbar flat>
           <v-toolbar-title>
-            <select >
-              <option >ward 1 </option>
-              <option >ward 2 </option>
-              <option >ward 3 </option>
-              <option >ward 4 </option>
-            </select>
+            <template>
+              <v-row align="center" class="slectBox">
+                <v-col
+                  class="d-flex"
+                  cols="12"
+                  sm="6"
+                >
+                  <v-select
+                  item-text="name"
+                  item-value="id"
+                  v-model="defaultSelected"
+                    :items="people"
+                    solo
+                  ></v-select>
+                </v-col>
+              </v-row>
+            </template>
           </v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
@@ -109,6 +120,28 @@ export default {
     dialog: false,
     dialogDelete: false,
     search: '',
+    defaultSelected: {
+      id: 1,
+      name: "Ward 1"
+    },
+    people: [
+      {
+        id: 1,
+        name: "Ward 1"
+      },
+      {
+        id: 2,
+        name: "Ward 2"
+      },
+      {
+        id: 3,
+        name: "Ward 3"
+      },
+      {
+        id: 4,
+        name: "Ward 4"
+      }
+    ],
     headers: [
       {
         text: 'Equipment',
@@ -121,12 +154,13 @@ export default {
       { text: 'Broken', value: 'bkn' ,filterable: false,},
       { text: 'Actions', value: 'actions', sortable: false },
     ],
-    items: [
-        { title: 'Click Me' },
-        { title: 'Click Me' },
-        { title: 'Click Me' },
-        { title: 'Click Me 2' },
+    item: [
+        { title: 'Ward  1' },
+        { title: 'Ward  2' },
+        { title: 'Ward  3' },
+        { title: 'Ward  4' },
       ],
+    items: ['Blue', 'Red', 'Yellow', 'Green'],
     desserts: [],
     editedIndex: -1,
     editedItem: {
@@ -229,3 +263,9 @@ export default {
   },
 }
 </script>
+<style >
+  
+  .slectBox{
+    margin-top: 35px;
+  }
+</style>
