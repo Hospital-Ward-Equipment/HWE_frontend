@@ -117,6 +117,7 @@
 // @ is an alias to /src
 import Navbar from '@/components/Navbar'
 // import Footer from '@/components/Footer'
+import axios from 'axios'
 
 export default {
   name: 'team',
@@ -133,5 +134,11 @@ export default {
       { name: 'Hu TechGroup', role: 'Desktop developer', avatar: '/img4.png' },
     ]
   }),
+  methods:{
+    getdata(){
+      axios.get
+    }
+  }
 }
+
 </script>
