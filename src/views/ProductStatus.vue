@@ -21,7 +21,7 @@ export default {
   methods: {},
 }
 </script>
-<style >
+<style > 
   
   .slectBox{
     margin-top: 35px;

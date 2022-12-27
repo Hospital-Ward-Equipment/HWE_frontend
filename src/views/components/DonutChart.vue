@@ -1,27 +1,23 @@
 <template>
   <v-app>
-    <Navbar />
-
     <div class="team">
       <div>
-        <DonutChart/>
+        <apexchart width="380" type="donut" :options="options" :series="series"></apexchart>
       </div>
     </div>
-
   </v-app>
 </template>
 
 <script>
-import Navbar from '@/components/Navbar'
-import DonutChart from '@/views/components/DonutChart'
 export default {
   name: 'team',
 
   components: {
-    Navbar,
-    DonutChart
   },
-  data: () => ({ }),
+  data: () => ({ 
+    options: {labels: ['Usable', 'Broken']},
+    series: [45, 55]
+  }),
   methods:{
   }
 }

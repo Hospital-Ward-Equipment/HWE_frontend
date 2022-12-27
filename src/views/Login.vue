@@ -20,7 +20,6 @@
                           <v-text-field id="password" label="Password" name="password" prepend-icon="lock"
                             type="password" color="light-blue lighten-2 accent-3" />
                         </v-form>
-                        <h3 class="text-center mt-4">Forgot your password ?</h3>
                       </v-card-text>
                       <div class="text-center mt-3">
                         <router-link to="/" custom v-slot="{ navigate }">
@@ -58,7 +57,11 @@
                         
                         <h4 class="text-center mt-4">Ensure your email for registration</h4>
                         <v-form>
-                          <v-text-field label="Name" name="Name" prepend-icon="person" type="text"
+                          <v-text-field label="User Name" name="UName" prepend-icon="person" type="text"
+                            color="light-blue lighten-2 accent-3" />
+                          <v-text-field label="First Name" name="FName" prepend-icon="person" type="text"
+                            color="light-blue lighten-2 accent-3" />
+                            <v-text-field label="Last Name" name="LName" prepend-icon="person" type="text"
                             color="light-blue lighten-2 accent-3" />
                           <v-text-field label="Email" name="Email" prepend-icon="email" type="text"
                             color="light-blue lighten-2 accent-3" />
