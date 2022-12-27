@@ -2,9 +2,23 @@
   <v-app>
     <Navbar />
 
-    <div class="team">
+    <div >
       <div>
-        <DonutChart/>
+        
+        <v-container class="red">
+          <v-row :justify="space - around">
+            <v-col  sm="12" md="12" lg="6">
+              <v-card class="pa-2" outlined tile>
+                <DonutChart />
+              </v-card>
+            </v-col>
+            <v-col  sm="12" md="12" lg="6">
+              <v-card class="pa-2" outlined tile>
+                <DonutChart />
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-container>
       </div>
     </div>
 
@@ -21,8 +35,8 @@ export default {
     Navbar,
     DonutChart
   },
-  data: () => ({ }),
-  methods:{
+  data: () => ({}),
+  methods: {
   }
 }
 
