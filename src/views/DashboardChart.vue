@@ -2,8 +2,24 @@
   <v-app>
     <Navbar />
 
-    <div class="team">
-      <h1>This page for chart - Nimesh</h1>
+    <div >
+      <div>
+        
+        <v-container class="red">
+          <v-row :justify="space - around">
+            <v-col  sm="12" md="12" lg="6">
+              <v-card class="pa-2" outlined tile>
+                <DonutChart />
+              </v-card>
+            </v-col>
+            <v-col  sm="12" md="12" lg="6">
+              <v-card class="pa-2" outlined tile>
+                <DonutChart />
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-container>
+      </div>
     </div>
 
   </v-app>
@@ -11,14 +27,16 @@
 
 <script>
 import Navbar from '@/components/Navbar'
+import DonutChart from '@/views/components/DonutChart'
 export default {
   name: 'team',
 
   components: {
     Navbar,
+    DonutChart
   },
-  data: () => ({ }),
-  methods:{
+  data: () => ({}),
+  methods: {
   }
 }
 
