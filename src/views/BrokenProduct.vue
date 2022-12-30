@@ -65,10 +65,10 @@ export default {
   },
   data: () => ({
     projects : [
-      {item: 'Site web2 ', fqty :10, uqty: 4, bqty:2},
-      {item: 'Site web3 ', fqty :10, uqty: 4, bqty:6},
-      {item: 'Site web1 ', fqty :10, uqty: 4, bqty:3},
-      {item: 'Site web0 ', fqty :10, uqty: 4, bqty:9},
+      {item: 'Item 1 ', fqty :10, uqty: 4, bqty:2},
+      {item: 'Item 2 ', fqty :10, uqty: 4, bqty:6},
+      {item: 'Item 3', fqty :10, uqty: 4, bqty:3},
+      {item: 'Item 4 ', fqty :10, uqty: 4, bqty:9},
     ]
   }),
   methods: {

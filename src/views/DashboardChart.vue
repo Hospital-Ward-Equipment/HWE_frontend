@@ -5,8 +5,8 @@
     <div >
       <div>
         
-        <v-container class="red">
-          <v-row :justify="space - around">
+        <v-container >
+          <v-row >
             <v-col  sm="12" md="12" lg="6">
               <v-card class="pa-2" outlined tile>
                 <DonutChart />
@@ -14,7 +14,7 @@
             </v-col>
             <v-col  sm="12" md="12" lg="6">
               <v-card class="pa-2" outlined tile>
-                <DonutChart />
+                <BarChart />
               </v-card>
             </v-col>
           </v-row>
@@ -28,12 +28,14 @@
 <script>
 import Navbar from '@/components/Navbar'
 import DonutChart from '@/views/components/DonutChart'
+import BarChart from '@/views/components/BarChart'
 export default {
-  name: 'team',
+  
 
   components: {
     Navbar,
-    DonutChart
+    DonutChart,
+    BarChart
   },
   data: () => ({}),
   methods: {

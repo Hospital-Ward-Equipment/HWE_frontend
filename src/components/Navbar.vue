@@ -68,8 +68,8 @@ export default {
     drawer: true,
     links: [
       { icon: 'dashboard', text: 'Dashboard', route: '/' },
-      { icon: 'mdi-stethoscope', text: 'Equipment', route: '/equipment' },
-      { icon: 'mdi-hospital-building', text: 'Wards', route: '/ward' }
+      { icon: 'mdi-glass-fragile', text: 'Broken Product', route: '/brokenProduct' },
+      { icon: 'mdi-archive', text: 'Stock', route: '/ward' }
     ]
 
   }),

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import DashboardChart from '../views/DashboardChart.vue'
-import Projects from '../views/Projects.vue'
+import BrokenProduct from '../views/BrokenProduct.vue'
 import ProductStatus from '../views/ProductStatus.vue'
 import Login from '../views/Login.vue'
 
@@ -14,9 +14,9 @@ const routes = [
     component: DashboardChart
   },
   {
-    path: '/equipment',
-    name: 'projects',
-    component: Projects
+    path: '/brokenProduct',
+    name: 'BrokenProduct',
+    component: BrokenProduct
   },
   {
     path: '/ward',
