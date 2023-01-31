@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Vuesax from 'vuesax'
 import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify';
@@ -9,6 +10,12 @@ Vue.prototype.$http = axios;
 import VueApexCharts from 'vue-apexcharts'
 Vue.use(VueApexCharts)
 Vue.component('apexchart', VueApexCharts)
+
+import 'vuesax/dist/vuesax.css' //Vuesax styles
+  Vue.use(Vuesax, {
+    // options here
+  })
+
 
 Vue.config.productionTip = false
 

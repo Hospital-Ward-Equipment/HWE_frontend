@@ -17,10 +17,16 @@
       </v-tooltip>
        <v-tooltip bottom>
       <template v-slot:activator="{ on }">
-        <v-btn small outlined color="blue" @click="sortBy('bqty')" class="mr-2" dark v-on="on">
+        <!-- <v-btn small outlined color="blue" @click="sortBy('bqty')" class="mr-2" dark v-on="on">
            <v-icon left small>person</v-icon>
             <span class="caption text-lowercase">By Broke qty</span>
-        </v-btn>
+        </v-btn> -->
+        <vs-button
+        :active="active == 0"
+        @click="active = 0"
+      >
+        Active
+      </vs-button>
       </template>
         <span>Sort person</span>
       </v-tooltip>

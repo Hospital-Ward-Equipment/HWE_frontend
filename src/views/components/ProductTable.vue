@@ -1,6 +1,6 @@
 <template>
   <v-app>
-  <v-card-title>
+    <v-card-title>
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
@@ -27,7 +27,57 @@
             <template v-slot:activator="{ on, attrs }">
               <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New Item</v-btn>
             </template>
-            <Form />
+            <v-card>
+              <v-card-title>
+                <span class="text-h5">{{ formTitle }}</span>
+              </v-card-title>
+
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12" sm="10" md="10">
+                      <v-text-field v-model="editedItem.name" label="Item name"></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="7" md="7">
+                      <v-text-field
+                        v-model="editedItem.allCount"
+                        label="All"
+                        :rules="nameRules"
+                        required
+                        clearable
+                        type="number"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="7" md="7">
+                      <v-text-field
+                        v-model="editedItem.usable"
+                        label="Usable count"
+                        :rules="nameRules"
+                        required
+                        clearable
+                        type="number"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="7" md="7">
+                      <v-text-field
+                        v-model="editedItem.broken"
+                        label="Broken count"
+                        :rules="nameRules"
+                        required
+                        clearable
+                        type="number"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+                <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+              </v-card-actions>
+            </v-card>
           </v-dialog>
           <v-dialog v-model="dialogDelete" max-width="500px">
             <v-card>
@@ -53,16 +103,17 @@
   </v-app>
 </template>
 <script>
-
 import SelectBox from "@/views/components/SelectBox";
-import Form from "../components/Form.vue";
+// import Form from "../components/Form.vue";
+import axios from "axios";
 export default {
   components: {
-    SelectBox,
-    Form
+    SelectBox
+    // Form
   },
   data: () => ({
     dialog: false,
+    itemId: -1,
     dialogDelete: false,
     search: "",
     defaultSelected: {
@@ -92,11 +143,11 @@ export default {
         text: "Equipment",
         align: "start",
         sortable: false,
-        value: "equipment"
+        value: "name"
       },
-      { text: "All", value: "all", filterable: false },
-      { text: "Usable", value: "ubl", filterable: false },
-      { text: "Broken", value: "bkn", filterable: false },
+      { text: "All", value: "allCount", filterable: false },
+      { text: "Usable", value: "usable", filterable: false },
+      { text: "Broken", value: "broken", filterable: false },
       { text: "Actions", value: "actions", sortable: false }
     ],
     items: ["Blue", "Red", "Yellow", "Green"],
@@ -104,16 +155,20 @@ export default {
     editedIndex: -1,
     editedItem: {
       equipment: "",
-      all: 0,
-      ubl: 0,
-      bkn: 0
+      allCount: 0,
+      usable: 0,
+      broken: 0
     },
     defaultItem: {
       equipment: "",
-      all: 0,
-      ubl: 0,
-      bkn: 0
-    }
+      allCount: 0,
+      usable: 0,
+      broken: 0
+    },
+    nameRules: [
+      v => !!v || " required",
+      v => v >= 0 || " must be greater than or equal 0"
+    ]
   }),
 
   computed: {
@@ -134,27 +189,32 @@ export default {
   created() {
     this.initialize();
   },
-
+  mounted() {
+    this.getAllItem();
+  },
   methods: {
-    initialize() {
-      this.desserts = [
-        { equipment: "Item 1", all: 21, ubl: 10, bkn: 11 },
-        { equipment: "Item 2", all: 22, ubl: 10, bkn: 15 },
-        { equipment: "Item 3", all: 24, ubl: 10, bkn: 12 },
-        { equipment: "Item 4", all: 25, ubl: 10, bkn: 13 },
-        { equipment: "Item 5", all: 23, ubl: 10, bkn: 10 },
-        { equipment: "Item 6", all: 20, ubl: 10, bkn: 10 },
-        { equipment: "Item 1", all: 20, ubl: 10, bkn: 10 },
-        { equipment: "Item 1", all: 20, ubl: 10, bkn: 10 },
-        { equipment: "Item 1", all: 20, ubl: 10, bkn: 10 },
-        { equipment: "Item 1", all: 20, ubl: 10, bkn: 10 },
-        { equipment: "Item 1", all: 20, ubl: 10, bkn: 10 },
-        { equipment: "Item 1", all: 20, ubl: 10, bkn: 10 },
-        { equipment: "Item 1", all: 20, ubl: 10, bkn: 10 },
-        { equipment: "Item 1", all: 20, ubl: 10, bkn: 10 },
-        { equipment: "Item 1", all: 20, ubl: 10, bkn: 10 },
-        { equipment: "Item 1", all: 20, ubl: 10, bkn: 10 }
-      ];
+    initialize() {},
+    async getAllItem() {
+      let AuthStr = sessionStorage.getItem("accessToken");
+      axios
+        .get("http://localhost:8080/getall", {
+          headers: { Authorization: "Bearer " + AuthStr }
+        })
+        .then(response => {
+          console.log(response);
+          console.log(response["data"]);
+          if (response["status"] == 200) {
+            console.log("successfully come data");
+            this.desserts = response["data"];
+          } else {
+            console.log("successfully not come data");
+          }
+        })
+        .catch(error => {
+          this.errormg = error;
+          // alert("ERROR : Something went wrong " + JSON.stringify(error));
+          this.alert = true;
+        });
     },
 
     editItem(item) {
@@ -165,12 +225,26 @@ export default {
 
     deleteItem(item) {
       this.editedIndex = this.desserts.indexOf(item);
+
+      console.log(item);
+      this.itemId = item.id;
+      console.log("product id = " + this.itemId);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
+      let AuthStr = sessionStorage.getItem("accessToken");
       this.desserts.splice(this.editedIndex, 1);
+      axios
+        .delete(`http://localhost:8080/deleteProduct/${this.itemId}`, {
+          headers: { Authorization: "Bearer " + AuthStr }
+        })
+        .catch(error => {
+          this.errormg = error;
+          alert("ERROR : Something went wrong " + JSON.stringify(error));
+          this.alert = true;
+        });
       this.closeDelete();
     },
 
@@ -193,16 +267,68 @@ export default {
     save() {
       if (this.editedIndex > -1) {
         Object.assign(this.desserts[this.editedIndex], this.editedItem);
+        let AuthStr = sessionStorage.getItem("accessToken");
+        let obj = {
+          name: this.editedItem.name,
+          allCount: this.editedItem.allCount,
+          usable: this.editedItem.usable,
+          broken: this.editedItem.broken
+        };
+        console.log(AuthStr)
+        axios
+          .put(`http://localhost:8080/updateProduct/${this.editedItem.id}`, obj, {
+            headers: { Authorization: "Bearer " + AuthStr }
+          })                           
+          .then(response => {
+            if (response["status"] == 200) {
+              console.log("successfully edited");
+            } else {
+              console.log("successfully not edited");
+            }
+          })
+          .catch(error => {
+            this.errormg = error;
+            // alert("ERROR : Something went wrong " + JSON.stringify(error));
+            this.alert = true;
+          });
       } else {
         this.desserts.push(this.editedItem);
+        let AuthStr = sessionStorage.getItem("accessToken");
+        let obj = {
+          name: this.editedItem.name,
+          allCount: this.editedItem.allCount,
+          usable: this.editedItem.usable,
+          broken: this.editedItem.broken
+        };
+        axios
+          .post(`http://localhost:8080/AddProduct`, obj, {
+            headers: { Authorization: "Bearer " + AuthStr }
+          })                           
+          .then(response => {
+            if (response["status"] == 200) {
+              console.log("successfully added");
+            } else {
+              console.log("successfully not added");
+            }
+          })
+          .catch(error => {
+            this.errormg = error;
+            // alert("ERROR : Something went wrong " + JSON.stringify(error));
+            this.alert = true;
+          });
       }
       this.close();
-    },
+    }
   }
 };
 </script>
 <style >
 .slectBox {
   margin-top: 35px;
+}
+.form-card {
+  height: 500px;
+  width: 600px;
+  padding: 50px;
 }
 </style>

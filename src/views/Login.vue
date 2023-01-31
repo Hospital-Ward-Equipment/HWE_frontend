@@ -33,11 +33,11 @@
                             color="light-blue lighten-2 accent-3"
                           />
                           <div class="text-center mt-3">
-                                <v-alert
-                                  border="left"
-                                  :value="alert"
-                                  type="warning"
-                                >Wrong Usersname or password</v-alert>
+                            <v-alert
+                              border="left"
+                              :value="alert"
+                              type="warning"
+                            >Wrong Usersname or password</v-alert>
                           </div>
                           <div class="text-center mt-3">
                             <v-btn
@@ -47,9 +47,6 @@
                               type="submit"
                               role="link"
                             >SIGN IN</v-btn>
-                            <!-- <router-link to="/" custom v-slot="{ navigate }">
-                          <v-btn rounded color="light-blue lighten-5 accent-3" dark @click="navigate" role="link">SIGN IN</v-btn>
-                            </router-link>-->
                           </div>
                         </v-form>
                       </v-card-text>
@@ -86,11 +83,13 @@
                         <h1 class="text-center display-2 text--accent-3">Create Account</h1>
 
                         <h4 class="text-center mt-4">Ensure your email for registration</h4>
-                        <v-form>
+                      
+                        <v-form @submit.prevent="registerForm">
                           <v-text-field
                             label="User Name"
                             name="UName"
                             prepend-icon="person"
+                            v-model="username"
                             type="text"
                             color="light-blue lighten-2 accent-3"
                           />
@@ -119,15 +118,22 @@
                             id="password"
                             label="Password"
                             name="password"
+                            v-model="password"
                             prepend-icon="lock"
                             type="password"
                             color="light-blue lighten-2 accent-3"
                           />
+                          <div class="text-center mt-3">
+                            <v-btn
+                              rounded
+                              color="light-blue lighten-5 accent-3"
+                              dark
+                              type="submit"
+                              role="link"
+                            >SIGN UP</v-btn>
+                          </div>
                         </v-form>
                       </v-card-text>
-                      <div class="text-center mt-n5">
-                        <v-btn rounded color="light-blue lighten-5 accent-3" dark>SIGN UP</v-btn>
-                      </div>
                     </v-col>
                   </v-row>
                 </v-window-item>
@@ -160,6 +166,42 @@ export default {
     source: String
   },
   methods: {
+    registerForm() {
+      let username = this.username;
+      let password = this.password;
+      // // let AuthStr = sessionStorage.getItem('accessToken')
+      // // {headers: {Authorization: "Bearer " + AuthStr}}
+
+      if (username == "" || password == "") {
+        console.log("empty us & ps")
+      } else {
+        axios
+          .post("http://localhost:8080/registerNewUser", {
+            userName:this.username,
+            userPassword:this.password,
+            userFirstName:"",
+            userLastName:"",
+            usermail:"akiladissanayaka255@gmail.com"
+          })
+          .then(response => {
+            console.log(response)
+            if (response["data"].success) {
+              sessionStorage.setItem("accessToken", response["data"].jwtToken);
+              this.$router.push({
+                path: `/`
+              });
+              this.alert = false;
+            } else {
+              this.alert = true;
+            }
+          })
+          .catch(error => {
+            this.errormg = error;
+            // alert("ERROR : Something went wrong " + JSON.stringify(error));
+            this.alert = true;
+          });
+      }
+    },
     submitForm() {
       let username = this.username;
       let password = this.password;
@@ -167,7 +209,7 @@ export default {
       // {headers: {Authorization: "Bearer " + AuthStr}}
 
       if (username == "" || password == "") {
-        alert("empty Us Ps");
+        console.log("empty us & ps")
       } else {
         axios
           .post("http://localhost:8080/authenticate", {
