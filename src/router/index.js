@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 import DashboardChart from '../views/DashboardChart.vue'
 import BrokenProduct from '../views/BrokenProduct.vue'
 import ProductStatus from '../views/ProductStatus.vue'
+import Ward from '../views/Ward.vue'
+import Equipment from '../views/Equipment.vue'
+
 import Login from '../views/Login.vue'
 
 Vue.use(VueRouter)
@@ -19,9 +22,19 @@ const routes = [
     component: BrokenProduct
   },
   {
+    path: '/summary',
+    name: 'summary',
+    component: ProductStatus
+  }, 
+  {
+    path: '/equipment',
+    name: 'equipment',
+    component: Equipment
+  }, 
+  {
     path: '/ward',
     name: 'ward',
-    component: ProductStatus
+    component: Ward
   }, 
   {
     path: '/login',

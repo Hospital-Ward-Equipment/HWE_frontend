@@ -29,11 +29,15 @@
       },
       {
         id: 2,
-        name: "Under 50"
+        name: "Under 500"
       },
       {
         id: 3,
-        name: "Under 100"
+        name: "Under 100" 
+      },
+      {
+        id: 4,
+        name: "Under 500"
       },
       {
         id: 4,

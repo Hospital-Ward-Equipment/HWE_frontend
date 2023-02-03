@@ -18,7 +18,7 @@ import 'vuesax/dist/vuesax.css' //Vuesax styles
 
 
 Vue.config.productionTip = false
-
+export const eventBus = new Vue();
 new Vue({
   router,
   vuetify,
