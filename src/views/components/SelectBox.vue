@@ -56,11 +56,7 @@ export default {
           this.alert = true;
         });
     },
-    watch: {
-      // defaultSelected: function() {
-      //   console.log("changed - ", this.defaultSelected);
-      // }
-    }
+    
   }
 };
 </script>
