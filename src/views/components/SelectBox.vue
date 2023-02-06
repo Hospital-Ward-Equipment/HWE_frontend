@@ -1,7 +1,14 @@
 <template>
   <v-row align="center" class="slectBox">
     <v-col class="d-flex" cols="12" sm="8">
-      <v-select item-text="name" item-value="id" v-model="wardValue" :items="wards" v-on:change="changeRoute()" solo></v-select>
+      <v-select
+        item-text="name"
+        item-value="id"
+        v-model="wardValue"
+        :items="wards"
+        v-on:change="changeRoute()"
+        solo
+      ></v-select>
     </v-col>
   </v-row>
 </template>
@@ -22,16 +29,9 @@ export default {
     this.wardValue = this.defaultSelected;
   },
   methods: {
-    // test() {
-    //   console.log("test work");
-    //   this.$emit("callMethod");
-    // },
-    test(){
-      this.$emit("callMethod2")
-    },
-    changeRoute(){
-      // console.log(this.wardValue)
-      this.$emit("callMethod",this.wardValue);
+    
+    changeRoute() {
+      this.$emit("callMethod", this.wardValue);
     },
     async getAllItem() {
       let AuthStr = sessionStorage.getItem("accessToken");
@@ -40,13 +40,9 @@ export default {
           headers: { Authorization: "Bearer " + AuthStr }
         })
         .then(response => {
-          console.log(response);
-          console.log(response["data"]);
           if (response["status"] == 200) {
-            // console.log("successfully come data");
             this.wards = response["data"];
             this.wards.unshift(this.defaultSelected);
-            // console.log("dessers", this.wards);
           } else {
             console.log("successfully not come data");
             this.$router.push({
@@ -61,9 +57,9 @@ export default {
         });
     },
     watch: {
-      defaultSelected: function() {
-        console.log("changed - ", this.defaultSelected);
-      }
+      // defaultSelected: function() {
+      //   console.log("changed - ", this.defaultSelected);
+      // }
     }
   }
 };

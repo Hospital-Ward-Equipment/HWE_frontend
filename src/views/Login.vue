@@ -159,6 +159,12 @@ export default {
     alert: false,
     errormg: ""
   }),
+  created () {
+    console.log("-------------------login")
+    console.log(this.$myGlobalVar)
+    console.log("-------------------")
+
+  },
   components: {
     // VsAlert
   },
@@ -166,7 +172,7 @@ export default {
     source: String
   },
   methods: {
-    registerForm() {
+    async registerForm() {
       let username = this.username;
       let password = this.password;
       // // let AuthStr = sessionStorage.getItem('accessToken')
@@ -175,7 +181,7 @@ export default {
       if (username == "" || password == "") {
         console.log("empty us & ps")
       } else {
-        axios
+        await axios
           .post("http://localhost:8080/registerNewUser", {
             userName:this.username,
             userPassword:this.password,
@@ -183,10 +189,11 @@ export default {
             userLastName:"",
             usermail:"akiladissanayaka255@gmail.com"
           })
-          .then(response => {
+          .then(async response => {
             console.log(response)
             if (response["data"].success) {
               sessionStorage.setItem("accessToken", response["data"].jwtToken);
+              await this.IsExpired()
               this.$router.push({
                 path: `/`
               });
@@ -201,6 +208,25 @@ export default {
             this.alert = true;
           });
       }
+    },
+    async IsExpired() {
+      let AuthStr = sessionStorage.getItem("accessToken");
+
+      await axios
+        .get("http://localhost:8080/is-expired", {
+          headers: { Authorization: "Bearer " + AuthStr }
+        })
+        .then(response => {
+          if (response["status"] == 200) {
+            this.$myGlobalVar=response["data"].role;
+            console.log(this.$myGlobalVar)
+          } else {
+            console.log("successfully not come data");
+          }
+        })
+        .catch(error => {
+          alert("ERROR : Something went wrong " + JSON.stringify(error));
+        });
     },
     submitForm() {
       let username = this.username;
@@ -219,6 +245,7 @@ export default {
           .then(response => {
             if (response["data"].success) {
               sessionStorage.setItem("accessToken", response["data"].jwtToken);
+              this.IsExpired()
               this.$router.push({
                 path: `/`
               });

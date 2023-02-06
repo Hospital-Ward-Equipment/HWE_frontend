@@ -11,7 +11,7 @@
       ></v-text-field>
     </v-card-title>
     <v-data-table
-      :headers="headers"
+      :headers="tableHeaders"
       :items="desserts"
       :search="search"
       sort-by="ename"
@@ -22,7 +22,8 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New Ward</v-btn>
+              
+              <v-btn color="primary" :disabled="MySingletonService.data.role != 'ROLE_Admin'" dark class="mb-2" v-bind="attrs" v-on="on">New Ward</v-btn>
             </template>
             <v-card>
               <v-card-title>
@@ -72,6 +73,8 @@
 </template>
 <script>
 import axios from "axios";
+import MySingletonService from '../../singleton-service'
+
 export default {
   components: {},
   data: () => ({
@@ -114,6 +117,11 @@ export default {
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? "Add New Ward" : "Edit Ward";
+    },
+    // import MySingletonService from '../../singleton-service'
+    tableHeaders() {
+      // console.log("MySingletonService.data.role "+MySingletonService.data.role)
+      return MySingletonService.data.role=="ROLE_Admin" ? this.headers : this.headers.filter(header => header.value !== 'actions');
     }
   },
 
@@ -128,6 +136,7 @@ export default {
 
   created() {
     this.initialize();
+    this.MySingletonService = MySingletonService;
   },
   mounted() {
     this.getAllItem();
@@ -141,10 +150,10 @@ export default {
           headers: { Authorization: "Bearer " + AuthStr }
         })
         .then(response => {
-          console.log(response);
-          console.log(response["data"]);
+          // console.log(response);
+          // console.log(response["data"]);
           if (response["status"] == 200) {
-            console.log("successfully come data");
+            // console.log("successfully come data");
             this.desserts = response["data"];
           } else {
             console.log("successfully not come data");
@@ -169,9 +178,9 @@ export default {
     deleteItem(item) {
       this.editedIndex = this.desserts.indexOf(item);
 
-      console.log(item);
+      // console.log(item);
       this.itemId = item.id;
-      console.log("product id = " + this.itemId);
+      // console.log("product id = " + this.itemId);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
@@ -214,7 +223,7 @@ export default {
         let obj = {
           name: this.editedItem.name,
         };
-        console.log(AuthStr);
+        // console.log(AuthStr);
         axios
           .put(
             `http://localhost:8080/api/ward/updateWard/${this.editedItem.id}`,
@@ -261,9 +270,9 @@ export default {
       }
       this.close();
     },
-    test2() {
-      console.log("test 2 callllz");
-    }
+    // test2() {
+    //   console.log("test 2 callllz");
+    // }
   }
 };
 </script>

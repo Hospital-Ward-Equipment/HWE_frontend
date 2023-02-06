@@ -11,7 +11,7 @@
       ></v-text-field>
     </v-card-title>
     <v-data-table
-      :headers="headers"
+      :headers="tableHeaders"
       :items="desserts"
       :search="search"
       sort-by="calories"
@@ -26,7 +26,7 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">Assign</v-btn>
+              <v-btn color="primary" :disabled="MySingletonService.data.role != 'ROLE_Admin'"  dark class="mb-2" v-bind="attrs" v-on="on">Assign</v-btn>
             </template>
             <v-card>
               <v-card-title>
@@ -151,6 +151,7 @@
 <script>
 import SelectBox from "@/views/components/SelectBox";
 // import Form from "../components/Form.vue";
+import MySingletonService from '../../singleton-service'
 import axios from "axios";
 export default {
   components: {
@@ -226,6 +227,10 @@ export default {
       return this.editedIndex === -1
         ? "Add new equipments to ward"
         : "Update ward equipments";
+    },
+    
+    tableHeaders() {
+      return MySingletonService.data.role=="ROLE_Admin" ? this.headers : this.headers.filter(header => header.value !== 'actions');
     }
   },
 
@@ -251,11 +256,12 @@ export default {
 
   created() {
     this.initialize();
+    this.MySingletonService = MySingletonService;
   },
 
   methods: {
     HandleSelectedEquipment() {
-      console.log("equipmentValue " + this.equipmentValue);
+      // console.log("equipmentValue " + this.equipmentValue);
       this.getAvailableCountOfEquipment();
       var equpId = this.equipmentValue;
       if (equpId != 0) {
@@ -403,9 +409,9 @@ export default {
     deleteItem(item) {
       this.editedIndex = this.desserts.indexOf(item);
 
-      console.log(item);
+      // console.log(item);
       this.itemId = item.id;
-      console.log("product id = " + this.itemId);
+      // console.log("product id = " + this.itemId);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
@@ -516,7 +522,7 @@ export default {
               headers: { Authorization: "Bearer " + AuthStr }
             })
             .then(response => {
-              console.log("response ",response)
+              // console.log("response ",response)
               if (response["status"] == 200) {
                 console.log("successfully added");
                 this.getAllItem();
@@ -531,13 +537,13 @@ export default {
             });
           this.close();
         } else {
-          console.log("ucant update");
+          console.log("incorrect update");
         }
       }
     },
-    test() {
-      console.log("select box call");
-    },
+    // test() {
+    //   console.log("select box call");
+    // },
     GetSelectedWard: async function(id) {
       await this.getAllItem();
       this.SelectedWard = id;

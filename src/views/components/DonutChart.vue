@@ -25,8 +25,8 @@ export default {
           headers: { Authorization: "Bearer " + AuthStr }
         })
         .then(response => {
-          console.log(response);
-          console.log(response["data"]);
+          // console.log(response);
+          // console.log(response["data"]);
           if (response["status"] == 200) {
             this.availableCount = response["data"];
             var wardName = [];
@@ -36,7 +36,7 @@ export default {
               wardName.push(obj.wname);
             }
             this.series = broken;
-            console.log(wardName);
+            // console.log(wardName);
             this.chartOptions = {
               chart: {
                 width: 380,
@@ -87,7 +87,7 @@ export default {
                   breakpoint: 480,
                   options: {
                     chart: {
-                      width: 200
+                      width: 100
                     },
                     legend: {
                       position: "bottom"

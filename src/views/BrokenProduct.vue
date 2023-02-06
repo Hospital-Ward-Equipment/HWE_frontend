@@ -62,6 +62,7 @@
 
 import Navbar from '@/components/Navbar'
 // import Footer from '@/components/Footer'
+import axios from "axios";
 export default {
 
   name: 'projects',
@@ -77,11 +78,38 @@ export default {
       {item: 'Item 4 ', fqty :10, uqty: 4, bqty:9},
     ]
   }),
+  mounted() {
+    this.IsExpired();
+  },
   methods: {
     sortBy(prop){
       this.projects.sort((a,b) => a[prop] > b[prop] ? -1:1)
+    },
+    async IsExpired() {
+      let AuthStr = sessionStorage.getItem("accessToken");
+
+      await axios
+        .get("http://localhost:8080/is-expired", {
+          headers: { Authorization: "Bearer " + AuthStr }
+        })
+        .then(response => {
+          if (response["status"] == 200) {
+            if (response["data"].success) {
+              this.$router.push({
+                path: `/login`
+              });
+            } 
+            
+          } else {
+            console.log("successfully not come data");
+          }
+        })
+        .catch(error => {
+          alert("ERROR : Something went wrong " + JSON.stringify(error));
+        });
     }
   }
+  
 }
 </script>
 <style >

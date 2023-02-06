@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: blue;">
+  <div >
     <FerrisWheel />
   </div>
 </template>

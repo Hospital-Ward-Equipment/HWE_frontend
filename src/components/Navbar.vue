@@ -69,7 +69,7 @@ export default {
     links: [
       { icon: 'dashboard', text: 'Dashboard', route: '/' },
       { icon: 'mdi-notebook-heart-outline', text: 'Summary', route: '/summary' },
-      { icon: 'mdi-glass-fragile', text: 'Broken Product', route: '/brokenProduct' },
+      // { icon: 'mdi-glass-fragile', text: 'Broken Product', route: '/brokenProduct' },
       { icon: 'mdi-hospital-building', text: 'Ward', route: '/ward' },
       { icon: 'mdi-cupboard', text: 'Equipment', route: '/equipment' }
     ]
